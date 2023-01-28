@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33205.214
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Luminous", "Luminous\Luminous.csproj", "{2A98C054-1EC1-48A1-AC5B-40F123CC83BB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2A98C054-1EC1-48A1-AC5B-40F123CC83BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A98C054-1EC1-48A1-AC5B-40F123CC83BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A98C054-1EC1-48A1-AC5B-40F123CC83BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A98C054-1EC1-48A1-AC5B-40F123CC83BB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B9E355EF-FCC1-42BA-87EC-D4D50012C6FA}
+	EndGlobalSection
+EndGlobal
