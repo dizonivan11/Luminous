@@ -82,8 +82,8 @@ namespace Luminous.Net {
                 try {
                     while (Listening) {
                         if (timeElapsed.ElapsedMilliseconds < timePerTick) continue;
-                        timeElapsed.Restart();
                         OnUpdate();
+                        timeElapsed.Restart();
                     }
                 } catch (Exception ex) {
 #if DEBUG
