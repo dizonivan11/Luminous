@@ -60,7 +60,6 @@ using System;
 using System.Timers;
 using System.Diagnostics;
 using System.Net;
-using System.Drawing;
 using Luminous.Net;
 
 public static class Program {
