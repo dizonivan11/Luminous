@@ -1,11 +1,11 @@
 ﻿// #undef DEBUG
 
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Luminous.Net {
@@ -31,11 +31,12 @@ namespace Luminous.Net {
         public void Stop() { Listening = false; }
 
         /// <summary>
-        /// FOR SERVER ONLY
+        /// For server only
         /// </summary>
-        /// <param name="port"></param>
-        /// <param name="timeout"></param>
-        /// <param name="encoding"></param>
+        /// <param name="port">Port to listen to</param>
+        /// <param name="timeout">Time (in milliseconds) it takes to disconnect the inactive client socket</param>
+        /// <param name="tickRate">Server tick rate (frequency of update per second)</param>
+        /// <param name="encoding">Type of encoding to use</param>
         public LuminousNetwork(int port, Encoding encoding = null, int tickRate = 64, int timeout = 5000) : base(port) {
             Port = port;
             TickRate = tickRate;
@@ -46,6 +47,9 @@ namespace Luminous.Net {
             timePerTick = 1000 / tickRate;
         }
 
+        /// <summary>
+        /// Start listening to remote sockets
+        /// </summary>
         public void Listen() {
             if (!Listening) {
                 Listening = true;
@@ -69,6 +73,11 @@ namespace Luminous.Net {
             }
         }
 
+        /// <summary>
+        /// Send data to a specific endpoint
+        /// </summary>
+        /// <param name="ep">Receiving endpoint</param>
+        /// <param name="data">Data to be sent</param>
         public void Send(IPEndPoint ep, string data) {
             Task.Run(async () => {
                 byte[] bytesToSend = Encoding.GetBytes(data);
@@ -76,6 +85,9 @@ namespace Luminous.Net {
             });
         }
 
+        /// <summary>
+        /// Update server on interval based on defined tick rate
+        /// </summary>
         private void Update() {
             timeElapsed.Start();
             Task.Run(() => {
@@ -94,18 +106,23 @@ namespace Luminous.Net {
         }
 
         /// <summary>
-        /// FOR CLIENT ONLY
+        /// For client only
         /// </summary>
-        /// <param name="timeout"></param>
-        /// <param name="encoding"></param>
-        public LuminousNetwork(Encoding encoding = null, int tickRate = 64, int timeout = 5000) {
-            TickRate = tickRate;
-            Timeout = timeout;
+        /// <param name="encoding">Type of encoding to use</param>
+        public LuminousNetwork(Encoding encoding = null) {
+            Port = -1;
+            TickRate = -1;
+            Timeout = -1;
             Encoding = encoding ?? Encoding.UTF8;
             Listening = false;
-            timePerTick = 1000 / tickRate;
+            timeElapsed = null;
+            timePerTick = -1;
         }
 
+        /// <summary>
+        /// Start listening to host socket
+        /// </summary>
+        /// <param name="ep">Host endpoint</param>
         public void Listen(IPEndPoint ep) {
             if (!Listening) {
                 Listening = true;
@@ -120,6 +137,10 @@ namespace Luminous.Net {
             }
         }
 
+        /// <summary>
+        /// Send data to a connected host endpoint
+        /// </summary>
+        /// <param name="data">Data to be sent</param>
         public void Send(string data) {
             Task.Run(async () => {
                 byte[] bytesToSend = Encoding.GetBytes(data);
