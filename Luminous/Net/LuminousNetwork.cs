@@ -34,7 +34,7 @@ namespace Luminous.Net {
         /// For server only
         /// </summary>
         /// <param name="port">Port to listen to</param>
-        ///<param name="encoding">Type of encoding to use</param>
+        /// <param name="encoding">Type of encoding to use</param>
         /// <param name="timeout">Time (in milliseconds) it takes to disconnect inactive socket</param>
         /// <param name="tickRate">Server tick rate (frequency of update per second)</param>
         public LuminousNetwork(int port, Encoding encoding = null, int tickRate = 64, int timeout = 5000) : base(port) {
